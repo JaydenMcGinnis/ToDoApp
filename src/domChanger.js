@@ -1,33 +1,46 @@
-class ProjectCreator {
+export class ProjectCreator {
   constructor(obj, parent) {
     this.obj = obj;
     this.parent = parent;
+    this.createElement();
+    this.appendChildren();
+    this.rendor();
+  }
+
+  // Append helper
+  appendChildren(parent, children = []) {
+    children.forEach((child) => {
+      parent.appendChild(child);
+    });
+  }
+
+  // Element creation helper
+  createElement(tag, classnames = [], textContent = "") {
+    const element = document.createElement(tag);
+    classnames.forEach((classname) => {
+      element.classList.add(classname);
+    });
+    element.textContent = textContent;
+    return element;
   }
   // Create dom elements for each property
   rendor() {
-    const container = document.createElement("div"),
-      title = document.createElement("h3"),
-      description = document.createElement("p"),
-      dueDate = document.createElement("p"),
-      priority = document.createElement("p"),
-      button = document.createElement("button");
-
-    container.classList.add("project-container");
-    title.textContent = obj.title;
-    description.textContent = obj.description;
-    dueDate.textContent = obj.dueDate;
-    priority.textContent = obj.priority;
-    button.textContent = "Add";
+    const container = this.createElement("div", ["project-container"]),
+      title = this.createElement("h3", [], this.obj.title),
+      description = this.createElement("p", [], this.obj.description),
+      dueDate = this.createElement("p", [], this.obj.dueDate),
+      priority = this.createElement("p", [], this.obj.priority),
+      button = this.createElement("button", [], "Add");
 
     // Append each section to its own div container
-    container.appendChild(title);
-    container.appendChild(description);
-    container.appendChild(dueDate);
-    container.appendChild(priority);
-    container.appendChild(button);
 
-    parent.appendChild(container);
+    this.appendChildren(container, [
+      title,
+      description,
+      dueDate,
+      priority,
+      button,
+    ]);
+    this.appendChildren(this.parent, [container]);
   }
-
-  // TODO: Add event listener to button for notes
 }
