@@ -3,4 +3,6 @@ class Note {
     this.title = title;
     this.description = description;
   }
+
+  createNote = () => {};
 }
