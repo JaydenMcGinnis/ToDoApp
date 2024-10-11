@@ -3,26 +3,3 @@
   padding: 0;
   margin: 0;
 }
-
-body {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-}
-
-.form-container form {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  margin: 10px;
-}
-
-form div {
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-}
-
-.priority {
-  display: inline-block;
-}

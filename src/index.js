@@ -11,5 +11,7 @@ import { Rendor } from "./rendor.js";
 const content = document.querySelector(".content");
 const note1 = new Note("title", "description", "dueDate", "Priority", false);
 const project1 = new Project("Test Project", "Test Description");
-new Rendor(note1, content);
+
+project1.taskList.push(note1);
+
 new Rendor(project1, content);
