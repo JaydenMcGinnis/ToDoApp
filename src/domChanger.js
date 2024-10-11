@@ -1,4 +1,4 @@
-export class ProjectCreator {
+export class RendorProject {
   constructor(obj, parent) {
     this.obj = obj;
     this.parent = parent;
@@ -32,8 +32,9 @@ export class ProjectCreator {
       priority = this.createElement("p", [], this.obj.priority),
       button = this.createElement("button", [], "Add");
 
-    // Append each section to its own div container
+    // TODO: Event listener that creates a new note and appends to parent
 
+    // Append children to container and then to content
     this.appendChildren(container, [
       title,
       description,
