@@ -1,14 +1,15 @@
 import "./styles.css";
-import { Project } from "./rendorProject";
-import { RendorProject } from "./domChanger";
+import { Project } from "./project.js";
+import { Note } from "./note.js";
+import { Rendor } from "./rendor.js";
 
-// Components:
+// TODO:
 // - Project Creation
 // - Note creation
 // - Dom Manipulation
 
 const content = document.querySelector(".content");
-const project1 = new Project("title", "description", "dueDate", "Priority");
-const project2 = new Project("title2", "description2", "dueDate2", "Priority2");
-
-new RendorProject(project1, content);
+const note1 = new Note("title", "description", "dueDate", "Priority", false);
+const project1 = new Project("Test Project", "Test Description");
+new Rendor(note1, content);
+new Rendor(project1, content);

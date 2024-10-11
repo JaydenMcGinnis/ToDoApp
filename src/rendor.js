@@ -1,4 +1,4 @@
-export class RendorProject {
+export class Rendor {
   constructor(obj, parent) {
     this.obj = obj;
     this.parent = parent;
@@ -23,6 +23,7 @@ export class RendorProject {
     element.textContent = textContent;
     return element;
   }
+
   // Create dom elements for each property
   rendor() {
     const container = this.createElement("div", ["project-container"]),
