@@ -3,7 +3,7 @@ import { Project } from "./project.js";
 import { Task } from "./task.js";
 import { Rendor } from "./rendor.js";
 
-const projectList = [];
+export const projectList = [];
 
 const content = document.querySelector(".content");
 const task1 = new Task(
