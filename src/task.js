@@ -1,5 +1,5 @@
 // Class for creating Projects
-export class Note {
+export class Task {
   constructor(title, description, dueDate, priority, taskComplete) {
     this.title = title;
     this.description = description;

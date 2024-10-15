@@ -1,17 +1,41 @@
 import "./styles.css";
 import { Project } from "./project.js";
-import { Note } from "./note.js";
+import { Task } from "./task.js";
 import { Rendor } from "./rendor.js";
 
-// TODO:
-// - Project Creation
-// - Note creation
-// - Dom Manipulation
+const projectList = [];
 
 const content = document.querySelector(".content");
-const note1 = new Note("title", "description", "dueDate", "Priority", false);
+const task1 = new Task(
+  "This is a title",
+  "This is a description",
+  "This is a duedate",
+  "High",
+  false
+);
+const task2 = new Task(
+  "This is a title",
+  "This is a description",
+  "This is a duedate",
+  "High",
+  false
+);
+const task3 = new Task(
+  "This is a title",
+  "This is a description",
+  "This is a duedate",
+  "High",
+  false
+);
+
 const project1 = new Project("Test Project", "Test Description");
+const project2 = new Project("Test Project", "Test Description");
 
-project1.taskList.push(note1);
+projectList.push(project1);
+projectList.push(project2);
 
-new Rendor(project1, content);
+project1.addTask(task1);
+project1.addTask(task2);
+project2.addTask(task3);
+
+// console.log(project1);

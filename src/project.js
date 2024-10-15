@@ -4,4 +4,8 @@ export class Project {
     this.description = description;
     this.taskList = [];
   }
+
+  addTask(task) {
+    this.taskList.push(task);
+  }
 }
