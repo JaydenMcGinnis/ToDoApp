@@ -1,5 +1,5 @@
 1. Create a project dynamically through dialog pop up. Add the created Project object to project list in index #DONE
-2. Put this into a module or class for future use
+2. Put this into a module or class for future use # Done
 3. Add a button to each project to create a task
 4. Add the created task object to that project instances taskList
 5. Create a function that displays all projects in projectlist
