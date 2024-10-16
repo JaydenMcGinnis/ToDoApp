@@ -1,7 +1,6 @@
 import "./styles.css";
-import { Project } from "./project.js";
+import { Project, ProjectCreator } from "./project.js";
 import { Task } from "./task.js";
-import { ProjectCreator } from "./projectCreator.js";
 
 // Create Project list
 const projectList = [];
