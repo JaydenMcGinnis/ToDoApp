@@ -1,7 +1,6 @@
 class Project {
   constructor(title, description) {
     this.title = title;
-    this.description = description;
     this.taskList = [];
   }
 
@@ -27,7 +26,7 @@ class ProjectCreator {
   // Create Project from form inputs
   createProject() {
     const data = new FormData(this.projectForm);
-    const project = new Project(data.get("title"), data.get("description"));
+    const project = new Project(data.get("title"));
     this.projectList.push(project);
   }
 
@@ -48,7 +47,7 @@ class ProjectCreator {
     this.projectList.forEach((project) => {
       // Create li element
       const element = document.createElement("li");
-      element.textContent = `${project.title} Description: ${project.description}`;
+      element.textContent = `${project.title}`;
       projectUnorderedList.appendChild(element);
     });
   }
