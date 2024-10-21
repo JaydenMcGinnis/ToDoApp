@@ -5,7 +5,9 @@ export class DOM {
     this.taskUnorderedList = document.querySelector("#task-list");
     this.createTaskButton = document.querySelector("#task-creator");
     this.taskDialog = document.querySelector("#task-dialog");
-    this.createTaskButton = document.querySelector("#create-task");
+    this.TaskButton = document.querySelector("#create-task");
+    this.taskSubmit = document.querySelector("#task-submit");
+    this.closeButton = document.querySelector("#task-dialog button");
   }
 
   // Get Project name
@@ -54,8 +56,22 @@ export class DOM {
   }
 
   closeTaskDialog() {
-    this.taskDialog.closest();
+    this.taskDialog.close();
   }
 
   // Addtask
+
+  initializeEvents() {
+    this.TaskButton.addEventListener("click", () => {
+      this.showTaskDialog();
+    });
+
+    //this.taskSubmit.addEventListener("click", () => {
+    //    this.addTask
+    //})
+
+    this.closeButton.addEventListener("click", () => {
+      this.closeTaskDialog();
+    });
+  }
 }

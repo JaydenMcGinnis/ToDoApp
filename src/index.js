@@ -13,3 +13,4 @@ projectCreator.initEventListeners();
 
 // initialize dom class
 const dom = new DOM();
+dom.initializeEvents();
