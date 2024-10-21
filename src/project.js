@@ -3,10 +3,6 @@ class Project {
     this.title = title;
     this.taskList = [];
   }
-
-  addTask(task) {
-    this.taskList.push(task);
-  }
 }
 
 class ProjectCreator {

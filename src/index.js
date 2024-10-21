@@ -4,7 +4,7 @@ import { Task } from "./task.js";
 import { DOM } from "./DOM.js";
 
 // Create Project list
-const projectList = [];
+export const projectList = [];
 
 // Initialize Project creator
 const projectCreator = new ProjectCreator(projectList);

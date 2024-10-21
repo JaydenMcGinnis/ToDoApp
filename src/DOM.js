@@ -1,10 +1,14 @@
+import { Task } from "./task";
+import { projectList } from "./index";
 export class DOM {
   constructor() {
     this.taskController();
+    this.activeProjectName;
     this.activeProject;
     this.taskUnorderedList = document.querySelector("#task-list");
     this.createTaskButton = document.querySelector("#task-creator");
     this.taskDialog = document.querySelector("#task-dialog");
+    this.taskForm = document.querySelector("#task-form");
     this.TaskButton = document.querySelector("#create-task");
     this.taskSubmit = document.querySelector("#task-submit");
     this.closeButton = document.querySelector("#task-dialog button");
@@ -16,14 +20,24 @@ export class DOM {
     UL.addEventListener("click", (e) => {
       // check if e is list item
       if (e.target.tagName === "LI") {
-        this.activeProject = e.target.textContent;
-        console.log(this.activeProject);
-        this.showTasks(e.target.taskList);
+        this.activeProjectName = e.target.textContent;
+        projectList.forEach((obj) => {
+          if (obj.title === this.activeProjectName)
+            this.activeProjectIndex = projectList.indexOf(obj);
+        });
+
+        console.log(this.activeProjectIndex);
+
+        this.taskSubmit.addEventListener("click", () => {
+          if (this.activeProject) {
+            this.createTask();
+          }
+        });
+        //this.showTasks(this.activeProject.taskList);
       }
     });
   }
 
-  // title, description, dueDate, priority, taskComplete
   // Display Project tasks
   showTasks(projectTaskList = []) {
     projectTaskList.forEach((task) => {
@@ -51,6 +65,19 @@ export class DOM {
     });
   }
 
+  createTask() {
+    // Get form data to create a task
+    const data = new FormData(this.taskForm);
+    // title, description, dueDate, priority, taskComplete
+    const task = new Task(
+      data.get("task-title"),
+      data.get("task-description"),
+      data.get("task-date"),
+      data.get("priority")
+    );
+    this.activeProject.taskList.push(task);
+  }
+
   showTaskDialog() {
     this.taskDialog.showModal();
   }
@@ -65,10 +92,6 @@ export class DOM {
     this.TaskButton.addEventListener("click", () => {
       this.showTaskDialog();
     });
-
-    //this.taskSubmit.addEventListener("click", () => {
-    //    this.addTask
-    //})
 
     this.closeButton.addEventListener("click", () => {
       this.closeTaskDialog();
