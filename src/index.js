@@ -1,6 +1,7 @@
 import "./styles.css";
-import { Project, ProjectCreator } from "./project.js";
+import { ProjectCreator } from "./project.js";
 import { Task } from "./task.js";
+import { DOM } from "./DOM.js";
 
 // Create Project list
 const projectList = [];
@@ -9,3 +10,6 @@ const projectList = [];
 const projectCreator = new ProjectCreator(projectList);
 projectCreator.showProjects(projectList);
 projectCreator.initEventListeners();
+
+// initialize dom class
+const dom = new DOM();

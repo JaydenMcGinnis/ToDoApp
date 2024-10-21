@@ -1,5 +1,5 @@
 class Project {
-  constructor(title, description) {
+  constructor(title) {
     this.title = title;
     this.taskList = [];
   }
@@ -16,8 +16,8 @@ class ProjectCreator {
     this.projectDialog = document.querySelector("#project-dialog");
     this.closeButton = document.querySelector("#project-dialog button");
     this.projectSubmit = document.querySelector("#project-submit");
-    this.projectButton = document.querySelector("#create-project");
-    this.projectForm = document.querySelector("form");
+    this.createProjectButton = document.querySelector("#create-project");
+    this.projectForm = document.querySelector("#project-form");
 
     // List of projects
     this.projectList = projectList;
@@ -31,12 +31,12 @@ class ProjectCreator {
   }
 
   // Open dialogs form
-  showDialog() {
+  showProjectDialog() {
     this.projectDialog.showModal();
   }
 
   // Close dialogs form
-  closeDialog() {
+  closeProjectDialog() {
     this.projectDialog.close();
   }
 
@@ -54,8 +54,8 @@ class ProjectCreator {
 
   initEventListeners() {
     // "Open" dialog in template
-    this.projectButton.addEventListener("click", () => {
-      this.showDialog();
+    this.createProjectButton.addEventListener("click", () => {
+      this.showProjectDialog();
     });
     // Create Project obj
     this.projectSubmit.addEventListener("click", () => {
@@ -65,7 +65,7 @@ class ProjectCreator {
 
     // "Close" button closes the dialog
     this.closeButton.addEventListener("click", () => {
-      this.closeDialog();
+      this.closeProjectDialog();
     });
   }
 }
