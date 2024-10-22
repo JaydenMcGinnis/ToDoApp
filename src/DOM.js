@@ -24,24 +24,24 @@ export class DOM {
         projectList.forEach((obj) => {
           if (obj.title === this.activeProjectName)
             this.activeProjectIndex = projectList.indexOf(obj);
+          this.activeProject = projectList[this.activeProjectIndex];
         });
-
-        this.activeProject = projectList[this.activeProjectIndex];
 
         this.taskSubmit.addEventListener("click", () => {
-          if (this.activeProjectName) {
+          if (this.activeProject) {
             this.createTask();
+            this.taskUnorderedList.innerHTML = "";
+            this.showTasks();
           }
         });
-        //this.showTasks(this.activeProject.taskList);
       }
     });
   }
 
   // Display Project tasks
-  showTasks(projectTaskList = []) {
-    projectTaskList.forEach((task) => {
-      const li = document.createElemenet("li");
+  showTasks() {
+    this.activeProject.taskList.forEach((task) => {
+      const li = document.createElement("li");
       const div = document.createElement("div");
       const h4 = document.createElement("h4");
       const p = document.createElement("p");
@@ -51,8 +51,8 @@ export class DOM {
 
       h4.textContent = task.title;
       description.textContent = task.description;
-      dueDate.textContent = task.dueDate;
-      priority.textContent = task.priority;
+      dueDate.textContent = `Due Date: ${task.dueDate}`;
+      priority.textContent = `Priority: ${task.priority}`;
 
       p.appendChild(description);
       p.appendChild(dueDate);
@@ -62,6 +62,8 @@ export class DOM {
       div.appendChild(p);
 
       li.appendChild(div);
+      this.taskUnorderedList.appendChild(li);
+      console.log(task);
     });
   }
 
