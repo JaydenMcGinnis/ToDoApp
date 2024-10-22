@@ -26,10 +26,10 @@ export class DOM {
             this.activeProjectIndex = projectList.indexOf(obj);
         });
 
-        console.log(this.activeProjectIndex);
+        this.activeProject = projectList[this.activeProjectIndex];
 
         this.taskSubmit.addEventListener("click", () => {
-          if (this.activeProject) {
+          if (this.activeProjectName) {
             this.createTask();
           }
         });
@@ -68,11 +68,12 @@ export class DOM {
   createTask() {
     // Get form data to create a task
     const data = new FormData(this.taskForm);
+
     // title, description, dueDate, priority, taskComplete
     const task = new Task(
-      data.get("task-title"),
-      data.get("task-description"),
-      data.get("task-date"),
+      data.get("title"),
+      data.get("description"),
+      data.get("date"),
       data.get("priority")
     );
     this.activeProject.taskList.push(task);
