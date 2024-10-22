@@ -2,7 +2,6 @@ import { Task } from "./task";
 import { projectList } from "./index";
 export class DOM {
   constructor() {
-    this.taskController();
     this.activeProjectName;
     this.activeProject;
     this.taskUnorderedList = document.querySelector("#task-list");
@@ -12,28 +11,39 @@ export class DOM {
     this.TaskButton = document.querySelector("#create-task");
     this.taskSubmit = document.querySelector("#task-submit");
     this.closeButton = document.querySelector("#task-dialog button");
+    this.num = 0;
   }
 
   // Get Project name
   taskController() {
     const UL = document.querySelector("#project-list");
+
+    // Event listener for project list item click
     UL.addEventListener("click", (e) => {
-      // check if e is list item
       if (e.target.tagName === "LI") {
         this.activeProjectName = e.target.textContent;
-        projectList.forEach((obj) => {
-          if (obj.title === this.activeProjectName)
-            this.activeProjectIndex = projectList.indexOf(obj);
-          this.activeProject = projectList[this.activeProjectIndex];
-        });
+        const project = projectList.find(
+          (obj) => obj.title === this.activeProjectName
+        );
 
-        this.taskSubmit.addEventListener("click", () => {
-          if (this.activeProject) {
-            this.createTask();
-            this.taskUnorderedList.innerHTML = "";
-            this.showTasks();
-          }
-        });
+        if (project) {
+          this.activeProjectIndex = projectList.indexOf(project);
+          this.activeProject = project;
+
+          // Reset and display tasks for the selected project
+          this.taskUnorderedList.innerHTML = "";
+          this.showTasks();
+        }
+      }
+    });
+
+    // Event listener for task submission
+    this.taskSubmit.addEventListener("click", () => {
+      if (this.activeProject) {
+        this.createTask();
+        // Reset and display updated tasks for the active project
+        this.taskUnorderedList.innerHTML = "";
+        this.showTasks();
       }
     });
   }
@@ -48,6 +58,7 @@ export class DOM {
       const description = document.createElement("span");
       const dueDate = document.createElement("span");
       const priority = document.createElement("span");
+      const button = document.createElement("button");
 
       h4.textContent = task.title;
       description.textContent = task.description;
@@ -61,15 +72,22 @@ export class DOM {
       div.appendChild(h4);
       div.appendChild(p);
 
+      // Button
+      button.textContent = "x";
+      button.addEventListener("click", () => {
+        console.log(this.activeProject.taskList.indexOf(task.title));
+      });
+
+      div.appendChild(button);
       li.appendChild(div);
       this.taskUnorderedList.appendChild(li);
-      console.log(task);
     });
   }
 
   createTask() {
     // Get form data to create a task
     const data = new FormData(this.taskForm);
+    this.num += 1;
 
     // title, description, dueDate, priority, taskComplete
     const task = new Task(
@@ -79,6 +97,7 @@ export class DOM {
       data.get("priority")
     );
     this.activeProject.taskList.push(task);
+    console.log(this.activeProject.taskList);
   }
 
   showTaskDialog() {
@@ -92,6 +111,7 @@ export class DOM {
   // Addtask
 
   initializeEvents() {
+    this.taskController();
     this.TaskButton.addEventListener("click", () => {
       this.showTaskDialog();
     });
