@@ -11,41 +11,6 @@ export class DOM {
     this.TaskButton = document.querySelector("#create-task");
     this.taskSubmit = document.querySelector("#task-submit");
     this.closeButton = document.querySelector("#task-dialog button");
-    this.num = 0;
-  }
-
-  // Get Project name
-  taskController() {
-    const UL = document.querySelector("#project-list");
-
-    // Event listener for project list item click
-    UL.addEventListener("click", (e) => {
-      if (e.target.tagName === "LI") {
-        this.activeProjectName = e.target.textContent;
-        const project = projectList.find(
-          (obj) => obj.title === this.activeProjectName
-        );
-
-        if (project) {
-          this.activeProjectIndex = projectList.indexOf(project);
-          this.activeProject = project;
-
-          // Reset and display tasks for the selected project
-          this.taskUnorderedList.innerHTML = "";
-          this.showTasks();
-        }
-      }
-    });
-
-    // Event listener for task submission
-    this.taskSubmit.addEventListener("click", () => {
-      if (this.activeProject) {
-        this.createTask();
-        // Reset and display updated tasks for the active project
-        this.taskUnorderedList.innerHTML = "";
-        this.showTasks();
-      }
-    });
   }
 
   // Display Project tasks
@@ -60,25 +25,25 @@ export class DOM {
       const priority = document.createElement("span");
       const button = document.createElement("button");
 
+      // Populate task details
       h4.textContent = task.title;
       description.textContent = task.description;
       dueDate.textContent = `Due Date: ${task.dueDate}`;
       priority.textContent = `Priority: ${task.priority}`;
 
+      // Append task details to the div
       p.appendChild(description);
       p.appendChild(dueDate);
       p.appendChild(priority);
-
       div.appendChild(h4);
       div.appendChild(p);
 
-      // Button
+      // Create and append the delete button
       button.textContent = "x";
-      button.addEventListener("click", () => {
-        console.log(this.activeProject.taskList.indexOf(task.title));
-      });
-
+      button.classList.add("delete-button");
       div.appendChild(button);
+
+      // Append the div to the li and the li to the task list
       li.appendChild(div);
       this.taskUnorderedList.appendChild(li);
     });
@@ -108,10 +73,49 @@ export class DOM {
     this.taskDialog.close();
   }
 
-  // Addtask
-
   initializeEvents() {
-    this.taskController();
+    const UL = document.querySelector("#project-list");
+
+    // Combined event listener for project list item clicks and delete button
+    UL.addEventListener("click", (e) => {
+      // If an LI is clicked, handle project selection
+      if (e.target.tagName === "LI") {
+        this.activeProjectName = e.target.textContent;
+        const project = projectList.find(
+          (obj) => obj.title === this.activeProjectName
+        );
+
+        if (project) {
+          this.activeProjectIndex = projectList.indexOf(project);
+          this.activeProject = project;
+
+          // Reset and display tasks for the selected project
+          this.taskUnorderedList.innerHTML = "";
+          this.showTasks();
+        }
+      }
+    });
+
+    this.taskUnorderedList.addEventListener("click", (e) => {
+      // If a delete button inside an LI is clicked, remove the project item
+      if (e.target && e.target.classList.contains("delete-button")) {
+        const listItem = e.target.closest("li"); // Locate the closest li to the button
+        listItem.remove(); // Remove the li from the DOM
+        console.log("OK");
+      }
+    });
+
+    // Event listener for task submission
+    this.taskSubmit.addEventListener("click", () => {
+      if (this.activeProject) {
+        this.createTask();
+        this.closeTaskDialog();
+        // Reset and display updated tasks for the active project
+        this.taskUnorderedList.innerHTML = "";
+        this.showTasks();
+      }
+    });
+
     this.TaskButton.addEventListener("click", () => {
       this.showTaskDialog();
     });

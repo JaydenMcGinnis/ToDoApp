@@ -23,6 +23,7 @@ class ProjectCreator {
   createProject() {
     const data = new FormData(this.projectForm);
     const project = new Project(data.get("title"));
+    this.closeProjectDialog();
     this.projectList.push(project);
   }
 
