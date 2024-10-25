@@ -37,15 +37,21 @@ class ProjectCreator {
     this.projectDialog.close();
   }
 
-  showProjects() {
+  showProjects(projectList = []) {
     const projectUnorderedList = document.querySelector("ul");
     projectUnorderedList.innerHTML = "";
 
-    this.projectList.forEach((project) => {
+    projectList.forEach((project) => {
       // Create li element
       const element = document.createElement("li");
+      const div = document.createElement("div");
+      const button = document.createElement("button");
       element.textContent = `${project.title}`;
-      projectUnorderedList.appendChild(element);
+      button.classList.add("delete-button");
+      button.textContent = "x";
+      div.appendChild(element);
+      div.appendChild(button);
+      projectUnorderedList.appendChild(div);
     });
   }
 
@@ -67,4 +73,5 @@ class ProjectCreator {
   }
 }
 
-export { Project, ProjectCreator };
+const showProjects = new ProjectCreator().showProjects;
+export { Project, ProjectCreator, showProjects };

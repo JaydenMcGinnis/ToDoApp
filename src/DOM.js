@@ -1,5 +1,7 @@
 import { Task } from "./task";
 import { projectList } from "./index";
+import { ProjectCreator, showProjects } from "./project";
+
 export class DOM {
   constructor() {
     this.taskUnorderedList = document.querySelector("#task-list");
@@ -102,6 +104,14 @@ export class DOM {
           this.showTasks();
         }
       }
+
+      if (e.target && e.target.classList.contains("delete-button")) {
+        const listItem = e.target.closest("div");
+        const projectTitle = listItem.querySelector("li");
+        const showProjects = new ProjectCreator().showProjects;
+        projectList.splice(projectList.indexOf(projectTitle), 1);
+        showProjects(projectList);
+      }
     });
 
     this.taskUnorderedList.addEventListener("click", (e) => {
@@ -114,8 +124,6 @@ export class DOM {
       }
     });
 
-    // Delete button event
-
     // Event listener for task submission
     this.taskSubmit.addEventListener("click", () => {
       if (this.activeProject) {
@@ -123,7 +131,7 @@ export class DOM {
         this.closeTaskDialog();
         // Reset and display updated tasks for the active project
         this.taskUnorderedList.innerHTML = "";
-        this.showTasks();
+        ProjectCreator.showProjects();
       }
     });
 
