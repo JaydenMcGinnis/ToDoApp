@@ -1,6 +1,5 @@
 import "./styles.css";
 import { ProjectCreator } from "./project.js";
-import { Task } from "./task.js";
 import { DOM } from "./DOM.js";
 
 // Create Project list

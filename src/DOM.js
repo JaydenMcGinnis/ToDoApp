@@ -2,8 +2,6 @@ import { Task } from "./task";
 import { projectList } from "./index";
 export class DOM {
   constructor() {
-    this.activeProjectName;
-    this.activeProject;
     this.taskUnorderedList = document.querySelector("#task-list");
     this.createTaskButton = document.querySelector("#task-creator");
     this.taskDialog = document.querySelector("#task-dialog");
@@ -62,7 +60,17 @@ export class DOM {
       data.get("priority")
     );
     this.activeProject.taskList.push(task);
-    console.log(this.activeProject.taskList);
+  }
+
+  deleteTask(task) {
+    this.activeProject.taskList.splice(
+      this.activeProject.taskList[this.activeProject.taskList.indexOf(task)],
+      1
+    );
+  }
+
+  deleteProject(project) {
+    projectList.splice(projectList[projectList.indexOf(project)], 1);
   }
 
   showTaskDialog() {
@@ -100,10 +108,13 @@ export class DOM {
       // If a delete button inside an LI is clicked, remove the project item
       if (e.target && e.target.classList.contains("delete-button")) {
         const listItem = e.target.closest("li"); // Locate the closest li to the button
+        const listItemTitle = listItem.querySelector("h4");
+        this.deleteTask(listItemTitle);
         listItem.remove(); // Remove the li from the DOM
-        console.log("OK");
       }
     });
+
+    // Delete button event
 
     // Event listener for task submission
     this.taskSubmit.addEventListener("click", () => {

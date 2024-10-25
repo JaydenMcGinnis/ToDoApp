@@ -1,4 +1,0 @@
-4. Add event listeners for each project in project list, when you click on one of the projects it creates a div
-5. Add a button to each project div to create a task
-6. Add the created task object to that project instances taskList
-7. Create a function that displays all tasks in active projects taskList
