@@ -13,3 +13,10 @@ projectCreator.initEventListeners();
 // initialize dom class
 const dom = new DOM();
 dom.initializeEvents();
+
+// STORAGE
+function populateStorage() {
+  projectList.forEach((project) => {
+    localStorage.setItem(project.title, project);
+  });
+}
