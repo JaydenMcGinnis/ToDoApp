@@ -22,7 +22,17 @@ class ProjectCreator {
   // Create Project from form inputs
   createProject() {
     const data = new FormData(this.projectForm);
-    const project = new Project(data.get("title"));
+    const title = data.get("title");
+    const projectTitles = [];
+    this.projectList.forEach((project) => {
+      projectTitles.push(project.title);
+    });
+
+    // Check if project name is already in project list
+    if (projectTitles.includes(title || title.toUpperCase())) {
+      return alert(`${title} already exists in project list.`);
+    }
+    const project = new Project(title);
     this.closeProjectDialog();
     this.projectList.push(project);
   }
