@@ -107,9 +107,13 @@ export class DOM {
 
       if (e.target && e.target.classList.contains("delete-button")) {
         const listItem = e.target.closest("div");
-        const projectTitle = listItem.querySelector("li");
+        const projectTitle = listItem.querySelector("li").innerText;
         const showProjects = new ProjectCreator().showProjects;
-        projectList.splice(projectList.indexOf(projectTitle), 1);
+        projectList.forEach((project) => {
+          if (project.title === projectTitle) {
+            projectList.splice(projectList.indexOf(project), 1);
+          }
+        });
         showProjects(projectList);
       }
     });
