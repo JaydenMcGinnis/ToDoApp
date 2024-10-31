@@ -1,6 +1,6 @@
 import { Task } from "./task";
 import { projectList } from "./index";
-import { ProjectCreator, showProjects } from "./project";
+import { showProjects, projectTitles } from "./project";
 
 export class DOM {
   constructor() {
@@ -83,6 +83,9 @@ export class DOM {
     this.taskDialog.close();
   }
 
+  // Storage
+  // Add project to storage
+
   initializeEvents() {
     const UL = document.querySelector("#project-list");
 
@@ -108,7 +111,6 @@ export class DOM {
       if (e.target && e.target.classList.contains("delete-button")) {
         const listItem = e.target.closest("div");
         const projectTitle = listItem.querySelector("li").innerText;
-        const showProjects = new ProjectCreator().showProjects;
         projectList.forEach((project) => {
           if (project.title === projectTitle) {
             this.deleteProject(project);

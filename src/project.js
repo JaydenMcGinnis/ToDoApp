@@ -35,6 +35,7 @@ class ProjectCreator {
     const project = new Project(title);
     this.closeProjectDialog();
     this.projectList.push(project);
+    localStorage.setItem(`${project.title}`, project);
   }
 
   // Open dialogs form
@@ -84,4 +85,5 @@ class ProjectCreator {
 }
 
 const showProjects = new ProjectCreator().showProjects;
-export { Project, ProjectCreator, showProjects };
+const projectTitles = new ProjectCreator().projectTitles;
+export { Project, ProjectCreator, showProjects, projectTitles };
