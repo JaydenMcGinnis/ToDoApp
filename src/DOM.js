@@ -72,7 +72,7 @@ export class DOM {
   }
 
   deleteProject(project) {
-    projectList.splice(projectList[projectList.indexOf(project)], 1);
+    projectList.splice(projectList.indexOf(project), 1);
   }
 
   showTaskDialog() {
@@ -111,9 +111,10 @@ export class DOM {
         const showProjects = new ProjectCreator().showProjects;
         projectList.forEach((project) => {
           if (project.title === projectTitle) {
-            projectList.splice(projectList.indexOf(project), 1);
+            this.deleteProject(project);
           }
         });
+        UL.innerHTML = "";
         showProjects(projectList);
       }
     });
@@ -135,7 +136,7 @@ export class DOM {
         this.closeTaskDialog();
         // Reset and display updated tasks for the active project
         this.taskUnorderedList.innerHTML = "";
-        ProjectCreator.showProjects();
+        this.showTasks();
       }
     });
 
