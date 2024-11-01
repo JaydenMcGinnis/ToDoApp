@@ -35,7 +35,7 @@ class ProjectCreator {
     const project = new Project(title);
     this.closeProjectDialog();
     this.projectList.push(project);
-    localStorage.setItem(`${project.title}`, project);
+    localStorage.setItem(`${project.title}`, JSON.stringify(project));
   }
 
   // Open dialogs form

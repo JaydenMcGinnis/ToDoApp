@@ -15,44 +15,49 @@ export class DOM {
 
   // Display Project tasks
   showTasks() {
-    this.activeProject.taskList.forEach((task) => {
-      const li = document.createElement("li");
-      const div = document.createElement("div");
-      const h4 = document.createElement("h4");
-      const p = document.createElement("p");
-      const description = document.createElement("span");
-      const dueDate = document.createElement("span");
-      const priority = document.createElement("span");
-      const button = document.createElement("button");
+    if (!this.activeProject) {
+      this.activeProject = projectList[0];
+    } else {
+      JSON.parse(
+        localStorage.getItem(`${this.activeProject.title}`)
+      ).taskList.forEach((task) => {
+        const li = document.createElement("li");
+        const div = document.createElement("div");
+        const h4 = document.createElement("h4");
+        const p = document.createElement("p");
+        const description = document.createElement("span");
+        const dueDate = document.createElement("span");
+        const priority = document.createElement("span");
+        const button = document.createElement("button");
 
-      // Populate task details
-      h4.textContent = task.title;
-      description.textContent = task.description;
-      dueDate.textContent = `Due Date: ${task.dueDate}`;
-      priority.textContent = `Priority: ${task.priority}`;
+        // Populate task details
+        h4.textContent = task.title;
+        description.textContent = task.description;
+        dueDate.textContent = `Due Date: ${task.dueDate}`;
+        priority.textContent = `Priority: ${task.priority}`;
 
-      // Append task details to the div
-      p.appendChild(description);
-      p.appendChild(dueDate);
-      p.appendChild(priority);
-      div.appendChild(h4);
-      div.appendChild(p);
+        // Append task details to the div
+        p.appendChild(description);
+        p.appendChild(dueDate);
+        p.appendChild(priority);
+        div.appendChild(h4);
+        div.appendChild(p);
 
-      // Create and append the delete button
-      button.textContent = "x";
-      button.classList.add("delete-button");
-      div.appendChild(button);
+        // Create and append the delete button
+        button.textContent = "x";
+        button.classList.add("delete-button");
+        div.appendChild(button);
 
-      // Append the div to the li and the li to the task list
-      li.appendChild(div);
-      this.taskUnorderedList.appendChild(li);
-    });
+        // Append the div to the li and the li to the task list
+        li.appendChild(div);
+        this.taskUnorderedList.appendChild(li);
+      });
+    }
   }
 
   createTask() {
     // Get form data to create a task
     const data = new FormData(this.taskForm);
-    this.num += 1;
 
     // title, description, dueDate, priority, taskComplete
     const task = new Task(
@@ -62,6 +67,11 @@ export class DOM {
       data.get("priority")
     );
     this.activeProject.taskList.push(task);
+    localStorage.removeItem(`${this.activeProject.title}`);
+    localStorage.setItem(
+      `${this.activeProject.title}`,
+      JSON.stringify(this.activeProject)
+    );
   }
 
   deleteTask(task) {
@@ -69,9 +79,16 @@ export class DOM {
       this.activeProject.taskList[this.activeProject.taskList.indexOf(task)],
       1
     );
+    localStorage.removeItem(`${this.activeProject.title}`);
+    localStorage.setItem(
+      `${this.activeProject.title}`,
+      JSON.stringify(this.activeProject)
+    );
   }
 
   deleteProject(project) {
+    this.taskUnorderedList.innerHTML = "";
+    localStorage.removeItem(project.title);
     projectList.splice(projectList.indexOf(project), 1);
   }
 
@@ -113,6 +130,7 @@ export class DOM {
         const projectTitle = listItem.querySelector("li").innerText;
         projectList.forEach((project) => {
           if (project.title === projectTitle) {
+            localStorage.removeItem(`${projectTitle}`);
             this.deleteProject(project);
           }
         });
